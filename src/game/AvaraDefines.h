@@ -13,12 +13,12 @@
 #define kMaxTeamColors 6
 
 #define kNeutralTeamColor 0x00ffffff
-#define kGreenTeamColor 0x00006600
-#define kYellowTeamColor 0x00cccc00
-#define kRedTeamColor 0x00cc0000
-#define kPinkTeamColor 0x00cc0099
-#define kPurpleTeamColor 0x009900cc
-#define kBlueTeamColor 0x000099cc
+#define kGreenTeamColor 0x009CBF68
+#define kYellowTeamColor 0x00DE8C3A
+#define kRedTeamColor 0x00BD4932
+#define kPinkTeamColor 0x009E4485
+#define kPurpleTeamColor 0x006A5FBD
+#define kBlueTeamColor 0x0089C4C7
 #define kSpecialBlackColor 0x00303030
 #define kSpecialWhiteColor 0x00e0e0e0
 
