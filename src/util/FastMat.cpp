@@ -23,6 +23,9 @@
 
 static unsigned short *arcTanTable = 0;
 static unsigned short *arcTanOneTable = 0;
+static Fixed swap_word(Fixed x) {
+    return ((x & 0x0000FFFF) << 16 | (x & 0xFFFF0000) >> 16);
+}
 
 /* FixMath */
 
@@ -31,7 +34,39 @@ Fixed FixMul(Fixed a, Fixed b) {
 }
 
 Fixed FixDiv(Fixed a, Fixed b) {
-    return ToFixed(ToFloat(a) / ToFloat(b));
+    //return ToFixed(ToFloat(a) / ToFloat(b));
+/*
+
+    move.l  b,D0
+    beq.s   @end
+    move.l  a,D1
+*/
+    if (b == 0) return 0;
+    Fixed r0 = b, r1 = a;
+/*  
+    swap    D1
+    Swap lower word with upper word
+*/
+    r1 = swap_word(r1);
+/*
+    move.w  D1,D0
+    Copy lower word of d1 to d0
+*/
+    r0 = r0 | (r1 & 0x0000FFFF);
+/*
+    clr.w   D0
+    Clear lower word
+*/
+    r0 = r0 & 0xFFFF0000;
+/*
+    ext.l   D1
+    Extend MSB (???)
+    divs.l  b,D1:D0
+    Divide
+*/
+    r1 = (r1 ^ (1U << 31)) - (1U << 31);
+    return r1 / b;
+
 }
 
 Fixed FixATan2(Fixed x, Fixed y) {
