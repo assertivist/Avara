@@ -6,14 +6,14 @@ layout(location = 2) in vec3 vertexNormal;
 
 uniform mat4 view;
 uniform mat4 proj;
-uniform mat4 modelView;
+uniform mat4 fullTransform;
 
 out vec4 fragmentColor;
 out vec3 fragmentNormal;
 
 void main() {
     vec4 pos = vec4(vertexPosition_modelspace, 1.0);
-    gl_Position = proj * (modelView * pos);
+    gl_Position = proj * (fullTransform * pos);
     fragmentColor = vertexColor;
     fragmentNormal = vertexNormal;
 }

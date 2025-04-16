@@ -704,17 +704,10 @@ void ModernOpenGLRenderer::SetTransforms(const CBSPPart &part) {
         mv = glm::scale(mv, sc);
     }
 
-    glm::mat3 normalMat = glm::mat3(1.0f);
-    for (int i = 0; i < 3; i ++) {
-        normalMat[0][i] = ToFloat((part.itsTransform)[0][i]);
-        normalMat[1][i] = ToFloat((part.itsTransform)[1][i]);
-        normalMat[2][i] = ToFloat((part.itsTransform)[2][i]);
-    }
-
     worldShader->Use();
-    worldShader->SetMat4("modelView", mv);
-    worldShader->SetMat3("normalTransform", normalMat, true);
+    worldShader->SetMat4("fullTransform", mv);
+    worldShader->SetMat4("itsTransform", ToFloatMat(part.itsTransform), true);
 
     hudShader->Use();
-    hudShader->SetMat4("modelView", mv);
+    hudShader->SetMat4("fullTransform", mv);
 }
